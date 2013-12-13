@@ -269,6 +269,27 @@ suite.add(new Y.Test.Case({
 }));
 
 suite.add(new Y.Test.Case({
+    name: "formatter",
+
+    "string formatter should get undisplayed values from the model": function () {
+        var view = new Y.DataTable.BodyView({
+            container: Y.Node.create('<table></table>'),
+            columns: [
+                { key: 'e',
+                  formatter:'{a},{b}'
+                },
+                { key: 'a'}
+            ],
+            modelList: new Y.ModelList().reset([{ a: 'a1', b: 'b1'}])
+        }).render();
+        node = view.getCell([0,0]);
+        Y.Assert.areSame('a1,b1', node.getHTML());
+        view.destroy();
+    }
+
+}));
+
+suite.add(new Y.Test.Case({
     name: "columns attribute",
 
     setUp: function () {
